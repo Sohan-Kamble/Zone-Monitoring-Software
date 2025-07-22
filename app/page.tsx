@@ -172,7 +172,7 @@ export default function HomePage() {
   const { data: session } = useSession();
   const [systemStatus, setSystemStatus] = useState<SystemStatus | null>(null);
   const [selectedZone, setSelectedZone] = useState<ZoneMarker | null>(null);
-  const [lastUpdated, setLastUpdated] = useState<string>(new Date().toLocaleTimeString());
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null); // <-- Initialize as null
 
   useEffect(() => {
     const fetchStatus = () => {
@@ -185,10 +185,10 @@ export default function HomePage() {
         .catch(console.error);
     };
 
-    fetchStatus(); // initial fetch
-    const interval = setInterval(fetchStatus, 1000); // fetch every second
+    fetchStatus(); // Initial fetch
+    const interval = setInterval(fetchStatus, 1000); // Fetch every second
 
-    return () => clearInterval(interval); // cleanup on unmount
+    return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
   const handleZoneClick = (zone: ZoneMarker) => {
@@ -310,14 +310,16 @@ export default function HomePage() {
             )}
 
             {/* Last Update */}
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Clock className="h-4 w-4" />
-                  <span>Last updated: {lastUpdated}</span>
-                </div>
-              </CardContent>
-            </Card>
+            {lastUpdated && (
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <Clock className="h-4 w-4" />
+                    <span>Last updated: {lastUpdated}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </main>
