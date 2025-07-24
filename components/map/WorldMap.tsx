@@ -80,7 +80,7 @@ export function WorldMap({ onZoneClick }: WorldMapProps) {
 
   return (
     <div className="relative w-full h-96 rounded-lg overflow-hidden border">
-      {/* <MapContainer
+      <MapContainer
         center={[20.5937, 78.9629]} // Center of India
         zoom={5}
         className="w-full h-full"
@@ -136,7 +136,7 @@ export function WorldMap({ onZoneClick }: WorldMapProps) {
             </Popup>
           </Marker>
         ))}
-      </MapContainer> */}
+      </MapContainer>
       
       {/* Zone info panel */}
       {selectedZone && (
